@@ -11,21 +11,23 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'up)y)^t_u*@4!*hnna^#ivyaznc6qm3l$v4h20%(@0g&*g3cpy'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "!!!SET DJANGO_SECRET_KEY!!!")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = eval(os.environ.get('ALLOWED_HOSTS', "[]"))
 
 
 # Application definition
@@ -51,6 +53,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'api_droids.urls'
 
+ADMIN_URL = os.environ.get("DJANGO_ADMIN_URL", "admin/")
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -73,11 +77,16 @@ WSGI_APPLICATION = 'api_droids.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+POSTGRES_USER = os.environ.get("POSTGRES_USER", 'clebsonpy')
+POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD", 'droidhub')
+POSTGRES_DB = os.environ.get("POSTGRES_DB", 'droidhub')
+POSTGRES_URL = os.environ.get("POSTGRES_URL", 'postgres')
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(
+        f'postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_URL}:5432/{POSTGRES_DB}',
+        conn_max_age=600
+    ),
 }
 
 
@@ -103,9 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Maceio'
 
 USE_I18N = True
 
@@ -117,4 +126,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/djstatic/'
+STATIC_ROOT = ROOT_DIR / 'staticfiles'
+STATICFILES_DIRS = (
+    ROOT_DIR / 'static',
+)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = ROOT_DIR / 'media/'
