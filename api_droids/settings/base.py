@@ -43,6 +43,7 @@ DJANGO_APPS = [
 
 LOCAL_APPS = [
     'demands',
+    'accounts',
 ]
 
 THIRD_PARTY_APPS = [
@@ -50,6 +51,11 @@ THIRD_PARTY_APPS = [
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

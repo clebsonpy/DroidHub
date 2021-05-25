@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.utils import timezone as tz
 from django.db import models
 from django.utils.html import mark_safe
@@ -40,7 +39,7 @@ class Demands(models.Model):
         (OPEN, 'Aberto'),
         (FINISH, 'Finalizada')
     )
-    user = models.ForeignKey(verbose_name='Usuário', to=User,
+    user = models.ForeignKey(verbose_name='Usuário', to='accounts.Profile',
                              null=False, blank=False, on_delete=models.CASCADE,
                              related_name='demands_user'
                              )
