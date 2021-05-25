@@ -11,7 +11,6 @@ sgadapac/staticfiles/
 # Distribution / packaging
 .Python
 build/
-media/
 develop-eggs/
 downloads/
 eggs/
