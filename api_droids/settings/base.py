@@ -139,7 +139,7 @@ USE_TZ = True
 STATIC_URL = '/djstatic/'
 STATIC_ROOT = ROOT_DIR / 'staticfiles'
 STATICFILES_DIRS = (
-    ROOT_DIR / 'static',
+    ROOT_DIR / 'media',
 )
 
 MEDIA_URL = '/media/'

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.utils import timezone as tz
 from django.db import models
+from django.utils.html import mark_safe
 
 
 # Create your models here.
@@ -32,9 +33,12 @@ class Address(models.Model):
 
 
 class Demands(models.Model):
+    OPEN = 'open'
+    FINISH = 'finish'
+
     status_choice = (
-        ('open', 'Aberto'),
-        ('finish', 'Finalizada')
+        (OPEN, 'Aberto'),
+        (FINISH, 'Finalizada')
     )
     user = models.ForeignKey(verbose_name='Usuário', to=User,
                              null=False, blank=False, on_delete=models.CASCADE,
@@ -55,7 +59,7 @@ class Demands(models.Model):
                                  null=False, blank=False, default=tz.now
                                  )
     date_finish = models.DateField(verbose_name='Data de finalização',
-                                   null=None, blank=False, default=None
+                                   null=True, blank=True, default=None
                                    )
 
     class Meta:
@@ -64,3 +68,12 @@ class Demands(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.user, self.description[:150])
+
+    def status_tag(self):
+        if self.status == self.OPEN:
+            return mark_safe('<img src="/media/baseline-check_circle_outline.svg" width="20" height="20" />')
+
+        elif self.status == self.FINISH:
+            return mark_safe('<img src="/media/baseline-highlight_off.svg" width="20" height="20" />')
+
+        return None

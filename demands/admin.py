@@ -11,5 +11,5 @@ class AddressAdmin(admin.ModelAdmin):
 
 @admin.register(Demands)
 class DemandsAdmin(admin.ModelAdmin):
-    list_display = ['user', 'description', 'status', 'date_open', 'date_finish']
+    list_display = ['user', 'description', 'status', 'date_open', 'date_finish', 'status_tag']
     search_fields = ['address__cep', 'status']
