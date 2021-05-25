@@ -32,7 +32,7 @@ ALLOWED_HOSTS = eval(os.environ.get('ALLOWED_HOSTS', "[]"))
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +40,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+LOCAL_APPS = [
+    'demands',
+    'accounts',
+]
+
+THIRD_PARTY_APPS = [
+
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -129,7 +145,7 @@ USE_TZ = True
 STATIC_URL = '/djstatic/'
 STATIC_ROOT = ROOT_DIR / 'staticfiles'
 STATICFILES_DIRS = (
-    ROOT_DIR / 'static',
+    ROOT_DIR / 'media',
 )
 
 MEDIA_URL = '/media/'
