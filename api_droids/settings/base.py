@@ -177,12 +177,17 @@ SIMPLE_JWT = {
 }
 
 SWAGGER_SETTINGS = {
+    'LOGIN_URL': '/api/accounts/login',
+    'LOGOUT_URL': '/api/accounts/logout',
     'SECURITY_DEFINITIONS': {
         'basic': {
             'type': 'basic'
         }
     },
+    'USE_SESSION_AUTH': True
 }
+
+
 
 REDOC_SETTINGS = {
    'LAZY_RENDERING': False,

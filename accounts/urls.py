@@ -1,7 +1,12 @@
 from django.urls import path, include
-from django.contrib.auth.views import LoginView, LogoutView
+from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
+
+from .views import CustomTokenObtainPairView
 
 urlpatterns = [
-    path('login/', LoginView.as_view(template_name='admin/login.html'), name="login"),
-    path('logout/', LogoutView.as_view(next_page='/'), name="logout")
+    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
+    path('', include('rest_framework.urls')),
 ]
