@@ -7,5 +7,6 @@ WORKDIR /backend
 
 COPY requirements /backend/requirements
 
-RUN pip install --no-cache-dir -U pip && \
+RUN apt update -y && apt install gettext -y &&\
+    pip install --no-cache-dir -U pip && \
     pip install --no-cache-dir -r requirements/$DJANGO_ENV.txt
