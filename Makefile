@@ -17,8 +17,10 @@ createsuperuser:
 	docker-compose run --rm backend python manage.py createsuperuser
 
 build-prod:
-	decker-compose -f docker-compose.prod.yml build
+	docker-compose -f docker-compose.prod.yml build --no-cache
 
 runserver-prod:
-	decker-compose -f docker-compose.prod.yml up
+	docker-compose -f docker-compose.prod.yml up
 
+migrate-prod:
+	docker-compose -f docker-compose.prod.yml run --rm backend python manage.py migrate
