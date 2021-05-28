@@ -1,0 +1,13 @@
+django==3.1.4
+django-split-settings==1.0.1
+
+# Database
+psycopg2-binary==2.8.6
+dj_database_url==0.5.0
+redis==3.5.3
+
+# API
+djangorestframework==3.11.0
+djangorestframework-simplejwt==4.6.0
+drf-writable-nested==0.6.2
+drf-yasg==1.20.0
