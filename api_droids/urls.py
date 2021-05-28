@@ -17,6 +17,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -28,7 +29,9 @@ schema_view = get_schema_view(
    openapi.Info(
       title="DroidHub API",
       default_version='v1',
-      description="Desafio para Desenvolvedor Backend",
+      description="Desafio para Desenvolvedor Backend \n"
+                  "A vista do <code>ReDoc</code> pode ser encontrada <a rel='noopener noreferrer' target='_blank' href='/redoc/'>aqui</a> \n \n"
+                  "Você pode entrar usando o usuário <code>admin</code> pré-existente com senha de acesso <code>admin123</code>.",
       contact=openapi.Contact(email="clebsonpy@gmail.com"),
    ),
    public=True,
@@ -36,10 +39,10 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='swagger/', permanent=False), name='index'),
     path(settings.ADMIN_URL, admin.site.urls),
     path('api/v1/accounts/', include('accounts.urls')),
     path('api/v1/demands/', include('demands.urls')),
-
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
