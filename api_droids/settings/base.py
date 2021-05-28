@@ -185,8 +185,8 @@ SIMPLE_JWT = {
 }
 
 SWAGGER_SETTINGS = {
-    'LOGIN_URL': '/api/accounts/login',
-    'LOGOUT_URL': '/api/accounts/logout',
+    'LOGIN_URL': '/api/v1/accounts/login',
+    'LOGOUT_URL': '/api/v1/accounts/logout',
     'SECURITY_DEFINITIONS': {
         'basic': {
             'type': 'basic'

@@ -9,7 +9,8 @@ from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers, exceptions
 from django.core.exceptions import ValidationError
 
-from demands.models import Address
+# from demands.models import Address
+from demands.serializers import AddressSerializer
 from .models import User, Profile
 
 
@@ -28,13 +29,6 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             token['address'] = user.profile.address.__str__()
 
         return token
-
-
-class AddressSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Address
-        exclude = ['id']
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -65,7 +59,7 @@ class RegisterSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = Profile
-        fields = '__all__'
+        exclude = ['id']
         extra_kwargs = {'user': {'read_only': True}}
 
     def is_unique(self, model, **kwargs):

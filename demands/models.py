@@ -39,7 +39,7 @@ class Demands(models.Model):
         (OPEN, 'Aberto'),
         (FINISH, 'Finalizada')
     )
-    user = models.ForeignKey(verbose_name='Usuário', to='accounts.Profile',
+    user = models.ForeignKey(verbose_name='Usuário', to='accounts.User',
                              null=False, blank=False, on_delete=models.CASCADE,
                              related_name='demands_user'
                              )
@@ -52,7 +52,7 @@ class Demands(models.Model):
                                    )
     status = models.CharField(verbose_name='Status', max_length=20,
                               null=False, blank=False,
-                              choices=status_choice,
+                              choices=status_choice, default=OPEN
                               )
     date_open = models.DateField(verbose_name='Data de abertura',
                                  null=False, blank=False, default=tz.now

@@ -7,6 +7,22 @@ from .serializers import CustomTokenObtainPairSerializer, UserSerializer, Regist
 from .models import User
 
 
+class ListUserPermission(IsAuthenticated):
+
+    def has_permission(self, request, view):
+
+        if view.action == 'list':
+            return request.user.is_superuser
+
+        elif view.action == 'retrieve':
+            if request.user.is_superuser:
+                return True
+
+            return request.user == view.get_object()
+
+        return False
+
+
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
     permission_classes = ()
@@ -16,13 +32,8 @@ class UserViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
                   viewsets.GenericViewSet):
 
     serializer_class = UserSerializer
-
-    def get_queryset(self):
-        user = self.request.user
-        if user.is_superuser:
-            return User.objects.all()
-
-        return User.objects.filter(username=user.username)
+    queryset = User.objects.all()
+    permission_classes = (ListUserPermission,)
 
 
 class RegisterView(GenericAPIView):
