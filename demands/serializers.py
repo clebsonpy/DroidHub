@@ -27,7 +27,7 @@ class DemandSerializer(WritableNestedModelSerializer):
 
     def validate_date_open(self, values):
 
-        if values > tz.now():
+        if values > tz.now().date():
             raise serializers.ValidationError(
                 "A data de de abertura de demanda não pode ser depois de hoje!"
             )

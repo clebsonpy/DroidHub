@@ -49,7 +49,6 @@ LOCAL_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
-    'drf_spectacular',
     'drf_yasg',
 ]
 
@@ -167,16 +166,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': (
        'rest_framework_simplejwt.authentication.JWTAuthentication',
        'rest_framework.authentication.BasicAuthentication',
        'rest_framework.authentication.SessionAuthentication',)
 
-}
-
-SPECTACULAR_SETTINGS = {
-    'COMPONENT_NO_READ_ONLY_REQUIRED': True
 }
 
 SIMPLE_JWT = {
