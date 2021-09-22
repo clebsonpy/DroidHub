@@ -103,14 +103,17 @@ WSGI_APPLICATION = 'api_droids.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-POSTGRES_USER = os.environ.get("POSTGRES_USER", 'clebsonpy')
-POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD", 'droidhub')
-POSTGRES_DB = os.environ.get("POSTGRES_DB", 'droidhub')
-POSTGRES_URL = os.environ.get("POSTGRES_URL", 'postgres')
+DB_USER = os.environ.get("POSTGRES_USER", 'clebsonpy')
+DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD", 'droidhub')
+DB_NAME = os.environ.get("POSTGRES_DB", 'droidhub')
+DB_URL = os.environ.get("POSTGRES_URL", 'postgres')
+DB_PORT = os.environ.get("POSTGRES_PORT", 'postgres')
+DB_ENGINE = os.environ.get("POSTGRES_PORT", 'mysql')
+
 
 DATABASES = {
     'default': dj_database_url.parse(
-        f'postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_URL}:5432/{POSTGRES_DB}',
+        f'{DB_ENGINE}://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_URL}:{POSTGRES_PORT}/{POSTGRES_DB}',
         conn_max_age=600
     ),
 }
