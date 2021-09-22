@@ -1,5 +1,5 @@
 # DroidHub
-API Rest para publicações de cotação de peças específicas de droids. 
+PI Rest para publicações de cotação de peças específicas de droids. 
 
 ## Desenvolvimento
 
